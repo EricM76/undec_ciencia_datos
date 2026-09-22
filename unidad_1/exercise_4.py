@@ -1,5 +1,6 @@
 """
 ## Ejercicio 4 - Indexing
+Ayuda: recuerden range https://docs.python.org/3/library/functions.html#func-range
 
 a) ¿Cuántas ventas se hicieron en USA?
 

@@ -1,5 +1,6 @@
 """
 ## Ejercicio 2: TIPOS DE DATOS
+Ayuda: https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.astype.html
 
 Crear un array numérico que tenga como valores las columna SALES y otro array de str que tenga como valores
 la columna COUNTRY

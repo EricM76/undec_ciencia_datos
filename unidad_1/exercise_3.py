@@ -1,5 +1,6 @@
 """
 ## Ejercicio 3: FUNCIONES DE AGREGACIÓN
+Ayuda: https://docs.scipy.org/doc/numpy-1.17.0/reference/routines.statistics.html
 
 Sobre los datos de precios de ventas (columna SALES) calcular:
 
