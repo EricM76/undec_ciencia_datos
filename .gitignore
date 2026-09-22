@@ -1,0 +1,8 @@
+# Archivos que superan el límite duro de GitHub (100 MB)
+DataSet/ALLFLOWMETER_HIKARI2021.csv
+DataSet/creditcard.csv
+DataSet/properatti.csv
+
+# Archivos grandes (>50 MB): GitHub advierte y pueden fallar al subir
+DataSet/drive-download-20251213T132805Z-3-001.zip
+DataSet/winemag-data-130k-v2.csv
