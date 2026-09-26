@@ -1,80 +1,39 @@
 ## Ejercicio 2
-# La función distribution_plotter grafica los datos que recibe como parámetro en una instancia de numpy array
-#
-# Graficar los precios de ventas en tres países. ¿Qué pueden decir respecto a sus distribuciones?
-#
-# Comparar las distribuciones con la de los precios de ventas sin distinguir por paises
+# Calcular la media y mediana de la columna SALES. ¿Qué podemos decir sobre la simetría en la
+# distribución de estos valores?
 
 import os
 
-import matplotlib.pyplot as plt  # pyright: ignore[reportMissingImports]
-import numpy as np  # pyright: ignore[reportMissingImports]
-import seaborn as sns  # pyright: ignore[reportMissingImports]
-
-
-def distribution_plotter(data, label, bin_width=500):
-    sns.set(rc={"figure.figsize": (7, 5)})
-    sns.set_style("white")
-    dist = sns.histplot(
-        data,
-        stat="count",
-        kde=False,
-        line_kws={"linewidth": 5},
-        binwidth=bin_width,
-    )
-    media = np.mean(data)
-    mediana = np.median(data)
-    dist.axvline(
-        media,
-        color="#d62728",
-        linestyle="--",
-        linewidth=2,
-        label=f"Media ({media:,.2f})",
-    )
-    dist.axvline(
-        mediana,
-        color="#2ca02c",
-        linestyle="-",
-        linewidth=2,
-        label=f"Mediana ({mediana:,.2f})",
-    )
-    dist.legend()
-    dist.set_title("Distribucion " + label + "\n", fontsize=16)
-
+import numpy as np
 
 # Ruta al CSV relativa a este script (misma lectura que el ejercicio 1: array de strings).
 data_location = os.path.join(
     os.path.dirname(__file__), "..", "DataSet", "sales_data_sample_excercise.csv"
 )
+
 data = np.genfromtxt(data_location, skip_header=1, delimiter="\t", dtype=str)
 
-# Columnas: 0 ORDERNUMBER, 1 SALES, 2 MONTH_ID, 3 YEAR_ID, 4 PRODUCTLINE, 5 COUNTRY
-sales_vector = data[:, 1].astype(float)
-country_vector = data[:, 5]
+# Columna SALES (indice 1): convertir a float para poder calcular estadisticos
+sales = data[:, 1].astype(float)
 
-paises_unicos = np.unique(country_vector)
-print(paises_unicos)
+media = np.mean(sales)
+mediana = np.median(sales)
 
-# Tres países con más observaciones, para que el histograma sea comparable.
-paises = ["USA", "Spain", "France"]
+print(f"Media de SALES: {media:.2f}")
+print(f"Mediana de SALES: {mediana:.2f}")
 
-for pais in paises:
-    ventas_pais = sales_vector[country_vector == pais]
-    plt.figure()
-    distribution_plotter(ventas_pais, pais)
+# Simetria: comparar media y mediana
+# - media ≈ mediana  -> distribucion simetrica
+# - media > mediana  -> asimetria a la derecha (cola hacia valores altos / outliers altos)
+# - media < mediana  -> asimetria a la izquierda (cola hacia valores bajos)
+if media > mediana:
     print(
-        f"{pais}: n={ventas_pais.size}, "
-        f"media={np.mean(ventas_pais):.2f}, mediana={np.median(ventas_pais):.2f}"
+        "Conclusion: media > mediana -> la distribucion de SALES es asimetria a la derecha "
+        "(valores altos / outliers empujan la media hacia arriba)."
     )
-
-plt.figure()
-distribution_plotter(sales_vector, "todos los paises")
-print(
-    f"Todos: n={sales_vector.size}, "
-    f"media={np.mean(sales_vector):.2f}, mediana={np.median(sales_vector):.2f}"
-)
-
-# Las tres distribuciones y la global están sesgadas a la derecha (media > mediana):
-# la mayoría de las ventas se concentra en valores bajos-medios y hay una cola de ventas altas.
-# USA, España y Francia se parecen entre sí y a la distribución conjunta.
-plt.show()
+elif media < mediana:
+    print(
+        "Conclusion: media < mediana -> la distribucion de SALES es asimetria a la izquierda."
+    )
+else:
+    print("Conclusion: media ≈ mediana -> la distribucion de SALES es aproximadamente simetrica.")
