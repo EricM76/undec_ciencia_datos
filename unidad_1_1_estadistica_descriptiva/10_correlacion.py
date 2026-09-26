@@ -14,18 +14,18 @@ y = np.array([3, 1.1, 0.12])
 horas = np.array([1, 2, 3, 4, 5])
 notas = np.array([4, 5, 6, 8, 9])
 r_pos = np.corrcoef(horas, notas)[0, 1]
-print(f"FUERTE POSITIVA (horas vs notas): r={r_pos:.3f}")
+print(f"FUERTE POSITIVA (horas vs notas): r={r_pos:.3f}") #r=0.991
 
 # FUERTE NEGATIVA
 precio = np.array([10, 20, 30, 40, 50])
 demanda = np.array([90, 70, 55, 40, 20])
 r_neg = np.corrcoef(precio, demanda)[0, 1]
-print(f"FUERTE NEGATIVA (precio vs demanda): r={r_neg:.3f}")
+print(f"FUERTE NEGATIVA (precio vs demanda): r={r_neg:.3f}") #r=-0.998
 
 # DEBIL / NULA
 ruido = np.array([3, 8, 1, 9, 4])
 r_nula = np.corrcoef(horas, ruido)[0, 1]
-print(f"DEBIL/NULA (sin relacion): r={r_nula:.3f}")
+print(f"DEBIL/NULA (sin relacion): r={r_nula:.3f}") #r=0.140
 
 # MATRIZ DE CORRELACION (como en la teoria)
 X = np.array([x, y])
